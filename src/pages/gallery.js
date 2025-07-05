@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AddEventForm } from '../components';
+import {SelectEventForm} from '../components';
 import eventService from '../appwrite/eventsService';
 import { useNavigate } from 'react-router-dom';
 import './gallery.css';
@@ -98,6 +99,7 @@ export default function Gallery() {
            />
         ))}
       </div>
+      <SelectEventForm/>
     </div>
   );
 }

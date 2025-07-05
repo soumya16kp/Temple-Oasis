@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {useForm} from "react-hook-form";
-import userService from "../appwrite/userService";
+import userService from "../../appwrite/userService";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useCallback } from "react";

@@ -1,12 +1,28 @@
-import { useState } from 'react';
-import './updateGallery.css';
-import eventService from '../appwrite/eventsService';
+import { useEffect, useState } from 'react';
+import './addEventForm.css';
+import eventService from '../../appwrite/eventsService';
 
-export default function UpdateGalleryForm({id,event, onCreated, onCancel }) {
+export default function SelectEventForm({ onCreated, onCancel }) {
+  const [events, setEvents] = useState([]);
+  const [selectedEventId, setSelectedEventId] = useState('');
   const [photos, setPhotos] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
+
+  // Load events when component mounts
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  const getEvents = async () => {
+    try {
+      const res = await eventService.listEvents();
+      setEvents(res.documents);
+    } catch (err) {
+      console.error('Error fetching events:', err);
+    }
+  };
 
   const handlePhotoChange = (e) => {
     const files = Array.from(e.target.files);
@@ -19,10 +35,14 @@ export default function UpdateGalleryForm({id,event, onCreated, onCancel }) {
     setPhotos(prev => prev.filter((_, i) => i !== index));
     setPreviewUrls(prev => prev.filter((_, i) => i !== index));
   };
-  console.log('Event page ID:', id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!selectedEventId) {
+      setMessage('Please select an event to update.');
+      return;
+    }
 
     try {
       setSaving(true);
@@ -36,22 +56,21 @@ export default function UpdateGalleryForm({id,event, onCreated, onCancel }) {
         }
       }
 
-      await eventService.updateEvent(id,{
-        ImageIds: [
-            ...(event.ImageIds || []),
-            ...uploadedPhotoIds
-        ]});
+      await eventService.updateEvent(selectedEventId, {
+        photoIds: uploadedPhotoIds,
+      });
 
-      setMessage('Added successfully!');
+      setMessage('Event updated successfully!');
       setPhotos([]);
       setPreviewUrls([]);
+      setSelectedEventId('');
       
       if (onCreated) {
         onCreated();
       }
     } catch (err) {
       console.error(err);
-      setMessage('Error saving event');
+      setMessage('Error updating event');
     } finally {
       setSaving(false);
     }
@@ -61,7 +80,23 @@ export default function UpdateGalleryForm({id,event, onCreated, onCancel }) {
     <div className="event-form">
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Photos</label>
+          <label>Select Event to Update Photos</label>
+          <select
+            value={selectedEventId}
+            onChange={(e) => setSelectedEventId(e.target.value)}
+            required
+          >
+            <option value=""> Select an Event</option>
+            {events.map(ev => (
+              <option key={ev.$id} value={ev.$id}>
+                {ev.Title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label>Upload New Photos</label>
           <input type="file" accept="image/*" multiple onChange={handlePhotoChange} />
         </div>
 

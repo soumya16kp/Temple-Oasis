@@ -17,7 +17,7 @@ export class Service{
 
     
 
-    async createEvent({ title, description, photoIds }) {
+    async createEvent({ title, description,lastDate,eventDate }) {
         return await this.databases.createDocument(
             conf.appwriteDatabaseId,
             conf.appwriteCollectionEventId,
@@ -25,7 +25,8 @@ export class Service{
             {
             Title: title,
             Description: description,
-            ImageIds: photoIds
+            Date: lastDate,
+            EventDate: eventDate,
             }
         );
     }

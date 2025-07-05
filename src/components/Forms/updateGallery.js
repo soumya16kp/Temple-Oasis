@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import './addEventForm.css';
-import eventService from '../appwrite/eventsService';
+import './updateGallery.css';
+import eventService from '../../appwrite/eventsService';
 
-export default function AddEventForm({ onCreated, onCancel }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+export default function UpdateGalleryForm({id,event, onCreated, onCancel }) {
   const [photos, setPhotos] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
   const [saving, setSaving] = useState(false);
@@ -21,13 +19,10 @@ export default function AddEventForm({ onCreated, onCancel }) {
     setPhotos(prev => prev.filter((_, i) => i !== index));
     setPreviewUrls(prev => prev.filter((_, i) => i !== index));
   };
+  console.log('Event page ID:', id);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title.trim()) {
-      setMessage('Title is required');
-      return;
-    }
 
     try {
       setSaving(true);
@@ -41,15 +36,13 @@ export default function AddEventForm({ onCreated, onCancel }) {
         }
       }
 
-      await eventService.createEvent({
-        title,
-        description,
-        photoIds: uploadedPhotoIds,
-      });
+      await eventService.updateEvent(id,{
+        ImageIds: [
+            ...(event.ImageIds || []),
+            ...uploadedPhotoIds
+        ]});
 
-      setMessage('Event created successfully!');
-      setTitle('');
-      setDescription('');
+      setMessage('Added successfully!');
       setPhotos([]);
       setPreviewUrls([]);
       
@@ -67,25 +60,6 @@ export default function AddEventForm({ onCreated, onCancel }) {
   return (
     <div className="event-form">
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Event Title</label>
-          <input
-            type="text"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label>Description</label>
-          <textarea
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-            required
-          />
-        </div>
-
         <div>
           <label>Photos</label>
           <input type="file" accept="image/*" multiple onChange={handlePhotoChange} />
