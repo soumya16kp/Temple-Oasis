@@ -1,0 +1,102 @@
+:root {
+  --yellow-main: #f9e79f;
+  --yellow-accent: #f4d03f;
+  --yellow-dark: #d4ac0d;
+  --text-main: #5a4e2d;
+  --text-muted: #85754d;
+  --white: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: var(--yellow-main);
+}
+
+.account-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  width: 320px;
+  text-align: center;
+  border-top: 6px solid var(--yellow-accent);
+}
+
+.photo-section {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--yellow-accent);
+}
+
+.photo-upload {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--yellow-dark);
+  cursor: pointer;
+}
+
+.photo-upload input {
+  display: none;
+}
+
+.info-section .field {
+  margin-bottom: 1.2rem;
+  text-align: left;
+}
+
+.info-section label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.info-section span,
+.info-section input {
+  font-size: 1rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid var(--yellow-main);
+  padding: 0.25rem 0;
+  color: var(--text-main);
+  transition: border-color 0.2s;
+}
+
+.info-section input:focus {
+  outline: none;
+  border-color: var(--yellow-accent);
+}
+
+.edit-button {
+  background: var(--yellow-accent);
+  color: var(--text-main);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: bold;
+}
+
+.edit-button:hover {
+  background: var(--yellow-dark);
+  color: var(--white);
+}

@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;500&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: #fffce9;
+  color: #3b2f1b;
+}
+
+.home-wrapper {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Hero Section */
+.hero {
+  background-color: #fff2d0;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(255, 199, 80, 0.2);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: #f39c12;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #5c4c2d;
+  margin-bottom: 1.5rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.primary-btn, .secondary-btn {
+  font-family: 'Poppins', sans-serif;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background-color: #f39c12;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: #e68a00;
+}
+
+.secondary-btn {
+  background-color: #fffdf4;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Quote Section */
+.quote-section {
+  background-color: #fffdf5;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-quote-btn {
+  background: none;
+  border: none;
+  color: #f39c12;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.quote-card {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(200, 170, 40, 0.1);
+}
+
+.quote-card.error {
+  border: 1px solid #e74c3c;
+  color: #c0392b;
+  background-color: #fff5f5;
+}
+
+/* Explore Grid */
+.explore-section h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Cinzel', serif;
+  color: #3b2f1b;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+.explore-card {
+  background-color: #fffef3;
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(210, 180, 90, 0.15);
+}
+
+.explore-card .icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #f39c12;
+}
+
+
+.explore-card a {
+  color: #f39c12;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.5rem;
+}

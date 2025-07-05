@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header container */
+.header {
+  background: linear-gradient(to right, #fffbe8, #fff5c4);
+  color: #4b3d1f;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 3px 10px rgba(240, 204, 80, 0.2);
+  border-bottom: 2px solid #ab8817;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo / Brand */
+.brand {
+  font-size: 2rem;
+  font-weight:600;
+  font-family: 'Cinzel', serif;  
+  color: #d4a900;
+  letter-spacing: 1.2px;
+  text-shadow: 1px 1px 0 #fef2c7;
+}
+
+/* Navigation */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.2rem;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #4b3d1f;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 700;
+  background-color: transparent;
+}
+
+.nav-button:hover {
+  background-color: #f1c860;
+  color: #f1efea;
+  box-shadow: 0 2px 6px rgba(200, 150, 20, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Logout button – styled differently */
+.nav-item:last-child .nav-button {
+  background-color: #f6d55c;
+  color: #3a2c12;
+  font-weight: 600;
+  border: 1px solid #eac84b;
+  padding: 0.6rem 1.2rem;
+}
+
+.nav-item:last-child .nav-button:hover {
+  background-color: #e4bb38;
+  color: #241b0a;
+}
+.account-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.account-button:hover {
+  color: #f0b400; /* Yellow theme accent */
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .nav-button {
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+  }
+
+  .nav-item:last-child .nav-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+

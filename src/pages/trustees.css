@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;500&display=swap');
+
+.trustees-page {
+  padding: 2rem;
+  background-color: #fffde9;
+  text-align: center;
+}
+
+.trustees-page h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: #c28c1d;
+  margin-bottom: 2rem;
+}
+
+.trustee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* Trustee Card Styles */
+.trustee-card {
+  background-color: #fffef4;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(241, 188, 52, 0.15);
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.trustee-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(241, 188, 52, 0.2);
+}
+
+.trustee-photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #f7c948;
+  margin-bottom: 1rem;
+}
+
+.trustee-name {
+  font-family: 'Cinzel', serif;
+  color: #3e2f16;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
+}
+
+.trustee-role {
+  color: #a67c00;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.trustee-contact p {
+  font-size: 0.95rem;
+  color: #555233;
+  margin: 4px 0;
+}

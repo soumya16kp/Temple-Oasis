@@ -1,0 +1,69 @@
+/* Base container */
+.contribution-page {
+  padding: 2rem 1rem;
+  background-color: #fffbe6;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #3b2d00;
+}
+
+/* Page heading */
+.contribution-page h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #3b2d00;
+  margin-bottom: 2rem;
+}
+
+/* Tab bar container */
+.tabs {
+  display: flex;
+  justify-content: center;
+  background-color: #fff8d4;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  overflow: hidden;
+}
+
+/* Tab item */
+.tabs button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5a3d00;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+/* Hover effect */
+.tabs button:hover {
+  background-color: #fff2b2;
+  color: #3b2d00;
+}
+
+/* Active tab */
+.tabs button.active {
+  color: #3b2d00;
+  font-weight: 700;
+  background-color: #fffbe6;
+}
+
+/* Active underline */
+.tabs button.active::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background-color: #fbc02d;
+  margin-top: 0.5rem;
+  border-radius: 2px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
