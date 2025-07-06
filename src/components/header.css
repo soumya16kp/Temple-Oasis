@@ -1,22 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;500&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 /* Header container */
 .header {
-  background: linear-gradient(to right, #fffbe8, #fff5c4);
+  background: linear-gradient(to left, #fffbe8, #f9d5a9);
   color: #4b3d1f;
-  padding: 1.2rem 2rem;
+  padding: 1rem 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Poppins', sans-serif;
-  box-shadow: 0 3px 10px rgba(240, 204, 80, 0.2);
-  border-bottom: 2px solid #ab8817;
+  border-bottom: 3px solid #fbfbfa;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -24,12 +18,11 @@
 
 /* Logo / Brand */
 .brand {
-  font-size: 2rem;
-  font-weight:600;
-  font-family: 'Cinzel', serif;  
-  color: #d4a900;
+  font-size: 2.25rem;
+  font-weight:500;
+  font-family: 'poppins','serif' ; 
+  color: #212020;
   letter-spacing: 1.2px;
-  text-shadow: 1px 1px 0 #fef2c7;
 }
 
 /* Navigation */

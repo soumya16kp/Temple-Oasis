@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import './ongoingEvent.css';
 import templeService from '../../appwrite/templeService';
 import eventsService from '../../appwrite/eventsService';
+import './ongoingEvent.css';
 
 export default function OngoingEvents({ userId }) {
   const [events, setEvents] = useState([]);
@@ -11,7 +11,7 @@ export default function OngoingEvents({ userId }) {
   const [selectedEventFilter, setSelectedEventFilter] = useState('all');
   const [activeMenuEventId, setActiveMenuEventId] = useState(null);
   const [newDate, setNewDate] = useState('');
-  const [ongoingEvent,setongoingEvent]= useState(true);
+  const [ongoingEvent, setOngoingEvent] = useState(true);
 
   useEffect(() => {
     fetchEvents();
@@ -35,19 +35,21 @@ export default function OngoingEvents({ userId }) {
       console.error('Error fetching donations:', error);
     }
   };
-  const handlePreviousEvents=()=>{
-      setongoingEvent(!ongoingEvent);
-  }
+
+  const handlePreviousEvents = () => {
+    setOngoingEvent(!ongoingEvent);
+  };
+
   const handleSubmitDonation = async (eventId, amount) => {
     try {
       const parsedAmount = parseInt(amount);
-      if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      if (isNaN(parsedAmount)) {
         alert("Please enter a valid amount");
         return;
       }
 
       const thisEvent = events.find(ev => ev.$id === eventId);
-      const existingAmount = thisEvent.CollectedAmount ?? 0;
+      const existingAmount = thisEvent.CollectedAmount || 0;
       const updatedAmount = existingAmount + parsedAmount;
 
       await eventsService.updateEvent(eventId, { CollectedAmount: updatedAmount });
@@ -62,7 +64,6 @@ export default function OngoingEvents({ userId }) {
       await fetchDonations();
       setActiveDonateEventId(null);
       setActiveAmount('');
-
     } catch (error) {
       console.error('Error adding donation:', error);
     }
@@ -70,13 +71,8 @@ export default function OngoingEvents({ userId }) {
 
   const handleMarkCompleted = async (eventId) => {
     try {
-      if(ongoingEvent){
-        await eventsService.updateEvent(eventId, { status: 'completed' });
-      }
-      if(!ongoingEvent){
-        console.log("first");
-        await eventsService.updateEvent(eventId, { status: 'active' });
-      }
+      const newStatus = ongoingEvent ? 'completed' : 'active';
+      await eventsService.updateEvent(eventId, { status: newStatus });
       await fetchEvents();
       setActiveMenuEventId(null);
     } catch (error) {
@@ -125,114 +121,106 @@ export default function OngoingEvents({ userId }) {
     : donations.filter(d => d.EventId === selectedEventFilter);
 
   return (
-    <div className="section">
-      <div className="events-container">
-        <div className="events-header">
-          <h2>{ongoingEvent ? 'Ongoing Events' : 'Completed Events'}</h2>
-          <button onClick={handlePreviousEvents}>
-            {ongoingEvent ? 'Show Previous Events' : 'Show Ongoing Events'}
-          </button>
-        </div>
-        <div className="events-grid">
-          {ongoingEvent && events.filter(ev => ev.status === 'active').map(event => (
+    <div className="events-dashboard">
+      <header className="dashboard-header">
+        <h1>{ongoingEvent ? 'Ongoing Events' : 'Completed Events'}</h1>
+        <button 
+          className="toggle-events-btn"
+          onClick={handlePreviousEvents}
+        >
+          {ongoingEvent ? 'Show Completed Events' : 'Show Ongoing Events'}
+        </button>
+      </header>
+
+      <div className="events-grid">
+        {events
+          .filter(ev => ongoingEvent ? ev.status === 'active' : ev.status === 'completed')
+          .map(event => (
             <div key={event.$id} className="event-card">
               <div className="card-header">
                 <h3>{event.Title}</h3>
-                <button
-                  className="menu-toggle"
-                  onClick={() => setActiveMenuEventId(activeMenuEventId === event.$id ? null : event.$id)}
-                >
-                  ⋯
-                </button>
-                {activeMenuEventId === event.$id && (
-                  <div className="card-dropdown">
-                    <button onClick={() => handleMarkCompleted(event.$id)}>
-                       Mark as Completed
+                <div className="card-actions">
+                  {ongoingEvent && (
+                    <button 
+                      className="donate-btn"
+                      onClick={() => setActiveDonateEventId(
+                        activeDonateEventId === event.$id ? null : event.$id
+                      )}
+                    >
+                      {activeDonateEventId === event.$id ? 'Cancel' : 'Donate'}
                     </button>
-                    <div className="dropdown-date">
-                      <input
-                        type="date"
-                        value={newDate}
-                        onChange={(e) => setNewDate(e.target.value)}
-                      />
-                      <button onClick={() => handleChangeDate(event.$id, newDate)}>
-                        Change Date
-                      </button>
-                    </div>
+                  )}
+                  <div className="dropdown-container">
+                    <button 
+                      className="menu-toggle"
+                      onClick={() => setActiveMenuEventId(
+                        activeMenuEventId === event.$id ? null : event.$id
+                      )}
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="6" r="1.5" fill="currentColor"/>
+                        <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                        <circle cx="12" cy="18" r="1.5" fill="currentColor"/>
+                      </svg>
+                    </button>
+                    {activeMenuEventId === event.$id && (
+                      <div className="dropdown-menu">
+                        <button onClick={() => handleMarkCompleted(event.$id)}>
+                          <span>✓</span> {ongoingEvent ? 'Mark Completed' : 'Mark Active'}
+                        </button>
+                        <div className="date-picker">
+                          <input
+                            type="date"
+                            value={newDate}
+                            onChange={(e) => setNewDate(e.target.value)}
+                          />
+                          <button onClick={() => handleChangeDate(event.$id, newDate)}>
+                            Update Date
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
 
-              <p>{event.Description}</p>
-              <p><strong>Status:</strong> {event.status || 'Ongoing'}</p>
-              <p><strong>Collected:</strong> ₹{event.CollectedAmount}</p>
-              <p>Last Date {getFormatDate(event.Date)}</p>
+              <p className="event-description">{event.Description}</p>
+              
+              <div className="event-metrics">
+                <div className="metric">
+                  <span className="metric-label"><strong>Status: </strong>{event.status} </span>
+                  <span className="metric-label"><strong>Collected₹: </strong>{event.CollectedAmount || '0'}</span>
+                </div>
+                <div className="metric">
+                  <span className="metric-label">Last Date</span>
+                  <span className="metric-value">{getFormatDate(event.Date)}</span>
+                </div>
+              </div>
 
-              {activeDonateEventId === event.$id ? (
-                <div className="donate-inline">
+              {activeDonateEventId === event.$id && ongoingEvent && (
+                <div className="donation-form">
                   <input
                     type="number"
-                    placeholder="Amount"
+                    placeholder="Enter amount"
                     value={activeAmount}
                     onChange={(e) => setActiveAmount(e.target.value)}
                   />
-                  <button onClick={() => handleSubmitDonation(event.$id, activeAmount)}>
-                    Confirm
-                  </button>
-                  <button onClick={() => setActiveDonateEventId(null)}>
-                    Cancel
+                  <button 
+                    className="confirm-btn"
+                    onClick={() => handleSubmitDonation(event.$id, activeAmount)}
+                  >
+                    Confirm Donation
                   </button>
                 </div>
-              ) : (
-                <button className="donate-button" onClick={() => setActiveDonateEventId(event.$id)}>
-                  Donate
-                </button>
               )}
             </div>
           ))}
-          {!ongoingEvent && events.filter(ev => ev.status === 'completed').map(event => (
-            <div key={event.$id} className="event-card">
-              <div className="card-header">
-                <h3>{event.Title}</h3>
-                <button
-                  className="menu-toggle"
-                  onClick={() => setActiveMenuEventId(activeMenuEventId === event.$id ? null : event.$id)}
-                >
-                  ⋯
-                </button>
-                {activeMenuEventId === event.$id && (
-                  <div className="card-dropdown">
-                    <button onClick={() => handleMarkCompleted(event.$id)}>
-                       Mark as Active
-                    </button>
-                    <div className="dropdown-date">
-                      <input
-                        type="date"
-                        value={newDate}
-                        onChange={(e) => setNewDate(e.target.value)}
-                      />
-                      <button onClick={() => handleChangeDate(event.$id, newDate)}>
-                        Change Date
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <p>{event.Description}</p>
-              <p><strong>Status:</strong> {event.status}</p>
-              <p><strong>Collected:</strong> ₹{event.CollectedAmount}</p>
-              <p>Last Date {getFormatDate(event.Date)}</p>
-
-            </div>
-          ))}
-        </div>
       </div>
 
       <div className="donations-container">
-        <h3>Previous Donations</h3>
+        <h3>Donation Records</h3>
         <div className="donation-filter">
-          <label>Show donations for: </label>
+          <label>Filter by event: </label>
           <select
             value={selectedEventFilter}
             onChange={(e) => setSelectedEventFilter(e.target.value)}
@@ -244,16 +232,26 @@ export default function OngoingEvents({ userId }) {
           </select>
         </div>
 
-        <ul className="donation-list">
-          {filteredDonations.map(d => (
-            <li key={d.$id} className="donation-item">
-              <span><strong>User:</strong> {d.UserId}</span>
-              <span><strong>Amount:</strong> ₹{d.Amount}</span>
-              <span><strong>Event ID:</strong> {d.EventId}</span>
-              <span><strong>Time:</strong> {getFormatDate(d.TimeStamp)}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="donations-grid">
+          {filteredDonations.length > 0 ? (
+            filteredDonations.map(donation => (
+              <div key={donation.$id} className="donation-card">
+                <div className="donation-header">
+                  <span className="donation-amount">₹{donation.Amount}</span>
+                  <span className="donation-date">{getFormatDate(donation.TimeStamp)}</span>
+                </div>
+                <div className="donation-details">
+                  <span>Event: {events.find(e => e.$id === donation.EventId)?.Title || donation.EventId}</span>
+                  <span>User: {donation.UserId}</span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="no-donations">
+              No donations found for selected filter
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

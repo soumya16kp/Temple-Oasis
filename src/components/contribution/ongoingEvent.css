@@ -1,305 +1,391 @@
-/* Main section container spacing */
-.section {
-  padding: 2rem 1rem;
+/* ongoingEvent.css */
+:root {
+  --gold-primary: #d4af37;
+  --gold-dark: #b89730;
+  --gold-light: #f8f1d8;
+  --text-dark: #2a2a2a;
+  --text-light: #666;
+  --bg-light: #fffdf7;
+  --border-radius: 12px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --transition: all 0.25s ease;
+}
+
+/* Base Styles */
+.events-dashboard {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
 }
 
-/* Section titles */
-.section h2,
-.section h3 {
+.dashboard-header {
   text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 5px solid var(--gold-light);
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  color: var(--gold-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.dashboard-header h2 {
+  font-size: 1.8rem;
+  color: var(--text-dark);
+  font-weight: 500;
   margin-bottom: 1.5rem;
-  color: #3b2d00;
-  font-weight: 700;
 }
 
-.section h2 {
-  font-size: 2rem;
+.toggle-events-btn {
+  background: var(--gold-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  font-size: 1rem;
 }
 
-.section h3 {
-  font-size: 1.6rem;
+.toggle-events-btn:hover {
+  background: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* Events grid */
+/* Events Grid */
 .events-grid {
-  display: flex;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  justify-content: space-between;
-  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
 }
 
-/* Event cards */
-.event-card {
-  background-color:#fbefd5;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  transition: transform 0.2s, box-shadow 0.2s;
+.events-grid .event-card {
+  background: white;
+  border-radius: 12px;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition); 
+  border: 1px solid #f4e3b2;
 }
 
 .event-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
-.event-card h3 {
-  margin: 0;
-  font-size: 1.4rem;
-  color: #4b3d1f;
-}
-
-.event-card p {
-  margin: 0.2rem 0;
-  color: #5c4520;
-  line-height: 1.4;
-}
-
-/* Card header with 3-dot button */
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.card-header h3 {
+  font-size: 1.4rem;
+  color: var(--gold-dark);
+  margin-right: 1rem;
+  font-weight: 600;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.donate-btn {
+  background: var(--gold-light);
+  color: var(--gold-dark);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.donate-btn:hover {
+  background: var(--gold-primary);
+  color: white;
 }
 
 .menu-toggle {
   background: none;
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
-  color: #4b3d1f;
-  transition: color 0.2s;
+  color: var(--text-light);
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.menu-toggle:hover {
-  color: #f9a825;
+.dropdown-container {
+  position: relative;
 }
 
-/* Dropdown menu */
-.card-dropdown {
+.dropdown-menu {
   position: absolute;
-  top: 2.8rem;
-  right: 1rem;
-  background-color: #fffef4;
-  border: 1px solid #f3d87a;
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  right: 0;
+  top: 100%;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 0.75rem;
   z-index: 10;
+  min-width: 200px;
+  border: 1px solid var(--gold-light);
+}
+
+.dropdown-menu button {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-width: 180px;
-}
-
-/* Dropdown buttons */
-.card-dropdown button {
-  padding: 0.4rem 0.8rem;
-  background-color: #fdd835;
-  border: none;
-  border-radius: 0.5rem;
-  color: #3b2d00;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.25s;
-}
-
-.card-dropdown button:hover {
-  background-color: #fbc02d;
-}
-
-/* Date picker inside dropdown */
-.dropdown-date {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.dropdown-date input[type="date"] {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #fbc02d;
-  border-radius: 0.5rem;
-  background-color: #fffef4;
-  color: #3b2d00;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.dropdown-date input[type="date"]:focus {
-  border-color: #f9a825;
-}
-
-/* Donate button */
-.donate-button {
-  padding: 0.5rem 1rem;
-  background-color: #fffffd;;
-  border: none;
-  border-radius: 0.5rem;
-  color: #3b2d00;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.25s;
-  margin-top: 0.5rem;
-}
-
-.donate-button:hover {
-  background-color: #fdfdf5f6;
-}
-
-/* Inline donation input & buttons */
-.donate-inline {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.donate-inline input[type="number"] {
-  padding: 0.5rem 0.8rem;
-  border: 1px solid #fbc02d;
-  border-radius: 0.5rem;
-  background-color: #fffef4;
-  color: #3b2d00;
-  font-size: 1rem;
-  outline: none;
+  align-items: center;
   width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-}
-
-.donate-inline input[type="number"]:focus {
-  border-color: #f9a825;
-}
-
-.donate-inline button {
-  padding: 0.4rem 0.8rem;
-  background-color: #fffffd;
+  text-align: left;
+  padding: 0.5rem;
+  background: none;
   border: none;
-  border-radius: 0.5rem;
-  color: #3b2d00;
-  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.25s;
+  transition: var(--transition);
+  color: var(--text-dark);
+  font-size: 0.95rem;
 }
 
-.donate-inline button:hover {
-  background-color: #fbc02d;
+.dropdown-menu button:hover {
+  background: var(--gold-light);
+  color: var(--gold-dark);
 }
 
-/* Donation filter */
-.donation-filter {
+.dropdown-menu button span {
+  margin-right: 0.5rem;
+  color: var(--gold-primary);
+}
+
+.date-picker {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gold-light);
+}
+
+.date-picker input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--gold-light);
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.date-picker button {
+  width: 100%;
+  background: var(--gold-light);
+  color: var(--gold-dark);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.date-picker button:hover {
+  background: var(--gold-primary);
+  color: white;
+}
+
+.event-description {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.event-metrics {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric {
+  background: var(--bg-light);
+  padding: 0.75rem;
+  border-radius: 8px;
   text-align: center;
+  margin-bottom: 1rem;
+}
+
+.metric-label {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  display: block;
+  font-weight: 600;
+  color: var(--gold-dark);
+}
+
+.donation-form {
+  margin-top: 1.5rem;
+}
+
+.donation-form input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gold-light);
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  font-family: inherit;
+}
+
+.confirm-btn {
+  width: 100%;
+  background: var(--gold-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.confirm-btn:hover {
+  background: var(--gold-dark);
+}
+
+/* Donations Section */
+.donations-container {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.donations-container h3 {
+  font-size: 1.5rem;
+  color: var(--gold-primary);
+  margin-bottom: 1.5rem;
+}
+
+.donation-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .donation-filter label {
-  margin-right: 0.5rem;
-  color: #4b3d1f;
-  font-weight: 600;
+  color: var(--text-dark);
 }
 
 .donation-filter select {
-  padding: 0.4rem 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid #fbc02d;
-  background-color: #fffef4;
-  color: #3b2d00;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s;
+  padding: 0.5rem;
+  border: 1px solid var(--gold-light);
+  border-radius: 6px;
+  background: white;
+  font-family: inherit;
 }
 
-.donation-filter select:focus {
-  border-color: #f9a825;
+.donations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
-/* Events container */
-.events-container {
-  background-color: #fffdf2;
-  border-radius: 1rem;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin-bottom: 2rem;
-  border: 1px solid #f4e4a5;
+.donation-card {
+  background: var(--bg-light);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  border: 1px solid var(--gold-light);
 }
 
-/* Donations container */
-.donations-container {
-  background-color: #fff9e6;
-  border-radius: 1rem;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border: 1px solid #f3d87a;
-}
-
-/* Donations list */
-.donation-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Individual donation item */
-.donation-item {
-  background-color: #fffef4;
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-  transition: box-shadow 0.2s;
-}
-
-.donation-item:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.donation-item span {
-  color: #5c4520;
-  font-size: 0.95rem;
-  flex: 1 1 45%;
-  min-width: 120px;
-}
-
-.events-header {
+.donation-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding: 0 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.events-header h2 {
-  margin: 0;
-  font-size: 1.8rem;
-  color: #3b2d00;
-}
-
-.events-header button {
-  padding: 0.4rem 1rem;
-  background-color: #fdd835;
-  border: none;
-  border-radius: 0.5rem;
-  color: #3b2d00;
+.donation-amount {
+  font-size: 1.2rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.25s;
+  color: var(--gold-dark);
 }
 
-.events-header button:hover {
-  background-color: #fbc02d;
+.donation-date {
+  font-size: 0.85rem;
+  color: var(--text-light);
 }
 
+.donation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.no-donations {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+  grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .events-dashboard {
+    padding: 1.5rem;
+  }
+  
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .event-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .donations-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .card-header {
+    flex-direction: row;
+    gap: 1rem;
+  }
+  
+  .card-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .donation-filter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

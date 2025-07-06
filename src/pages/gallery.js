@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { AddEventForm } from '../components';
 import {SelectEventForm} from '../components';
 import eventService from '../appwrite/eventsService';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +53,7 @@ function EventCard({ event,onClick }) {
       )}
       <div className="event-card-body">
         <h3 className="event-card-title">{event.Title}</h3>
-        <p className='semiheader'><strong>Venue Date : {getFormatDate(event.EventDate)}</strong></p>
+        <p className='semiheader' style={{textAlign: 'center'}}><strong>Venue Date : {getFormatDate(event.EventDate)}</strong></p>
         <p className="event-card-description">{event.Description}</p>
       </div>
     </div>
@@ -92,6 +91,7 @@ export default function Gallery() {
   };
 
   return (
+    <div className='gallery'>
     <div className="gallery-container">
       <div className="gallery-header">
         <h2>Gallery</h2>
@@ -119,6 +119,7 @@ export default function Gallery() {
            />
         ))}
       </div>
+    </div>
     </div>
   );
 }

@@ -1,12 +1,19 @@
-import React from "react";
 import { FiInfo, FiUsers, FiImage, FiHeart } from "react-icons/fi";
 import "./home.css";
-
+import herobackground from '../images/Flux_Dev_a_stunning_illustration_of_A_peaceful_temple_at_sunri_1.jpg';
 function HomePage() {
   return (
     <div className="home-wrapper">
       {/* Hero Section */}
-      <section className="hero">
+      <section
+        className="hero"
+        style={{
+          backgroundImage: `url(${herobackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
         <h1>
           Welcome to <span className="highlight">Divine Oasis</span>
         </h1>
@@ -31,7 +38,8 @@ function HomePage() {
       </section>
 
       {/* Explore Section */}
-      <section className="explore-section">
+      <section className="explore-section"
+      >
         <h2>Explore Divine Oasis</h2>
         <div className="explore-grid">
           <div className="explore-card">
