@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { UpdateGalleryForm } from '../components';
 import eventService from '../appwrite/eventsService';
+import Masonry from 'react-masonry-css';
 import './event.css';
 
 export default function Event() {
@@ -11,12 +12,18 @@ export default function Event() {
   const [showForm, setShowForm] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [descriptionInput, setDescriptionInput] = useState('');
+  const [currentImage, setCurrentImage] = useState(null);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     const fetchEvent = async () => {
       try {
         const data = await eventService.getEvent(id);
         setEvent(data);
+        setImages(data.ImageIds?.map(imageId => ({
+          id: imageId,
+          url: eventService.getFilePreview(imageId)
+        })) || []);
       } catch (error) {
         console.error(error);
       } finally {
@@ -41,65 +48,107 @@ export default function Event() {
   };
 
   if (loading) {
-    return <div className="single-event-loading">Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   if (!event) {
-    return <div className="single-event-error">Event not found.</div>;
+    return <div className="not-found">Event not found</div>;
   }
 
   return (
-    <div className="single-event-card">
-      <h1 className="single-event-title">{event.Title}</h1>
+    <div className="event-gallery">
+      <header className="gallery-header">
+        <div className="header-content">
+          <h1 className="event-title">{event.Title}</h1>
+          <p className="event-date">
+            {new Date(event.EventDate).toLocaleDateString('en-IN', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </p>
+        </div>
+      </header>
 
-      <div
-        className="single-event-description-container"
-        onMouseEnter={() => !isEditingDescription && setIsEditingDescription(false)}
-        onMouseLeave={() => !isEditingDescription && setIsEditingDescription(false)}
-      >
+      <section className="description-section">
         {isEditingDescription ? (
-          <div className="single-event-description-edit">
+          <div className="description-editor">
             <textarea
               value={descriptionInput}
               onChange={(e) => setDescriptionInput(e.target.value)}
-              rows={4}
-              placeholder="Enter event description..."
+              className="description-input"
+              placeholder="Describe the event..."
             />
-            <div className="description-edit-actions">
-              <button onClick={handleSaveDescription}>Save</button>
-              <button onClick={() => setIsEditingDescription(false)}>Cancel</button>
+            <div className="editor-actions">
+              <button className="save-btn" onClick={handleSaveDescription}>
+                Save
+              </button>
+              <button 
+                className="cancel-btn"
+                onClick={() => setIsEditingDescription(false)}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         ) : (
-          <div className="single-event-description">
-            {event.Description ? event.Description : <span className="placeholder">No description added yet.</span>}
+          <div className="description-display">
+            <p>{event.Description || 'No description available'}</p>
             <button
-              className="edit-description-button"
+              className="edit-btn"
               onClick={() => {
                 setDescriptionInput(event.Description || '');
                 setIsEditingDescription(true);
               }}
             >
-               Edit
+              Edit Description
             </button>
           </div>
         )}
-      </div>
+      </section>
 
-      <div className="single-event-image-grid">
-        {event.ImageIds?.map((imageId) => (
-          <img
-            key={imageId}
-            src={eventService.getFilePreview(imageId)}
-            alt={event.Title}
-            className="single-event-image"
-          />
-        ))}
-      </div>
+      <section className="image-gallery">
+        {images.length > 0 ? (
+          <Masonry
+            breakpointCols={{
+              default: 3,
+              900: 2,
+              600: 1
+            }}
+            className="masonry-grid"
+            columnClassName="masonry-column"
+          >
+            {images.map((image) => (
+              <div
+                key={image.id}
+                className="masonry-item"
+                onClick={() => setCurrentImage(image.url)}
+              >
+                <img
+                  src={image.url}
+                  alt={`From ${event.Title}`}
+                  loading="lazy"
+                />
+                <div className="image-overlay"></div>
+              </div>
+            ))}
+          </Masonry>
+        ) : (
+          <div className="empty-gallery">
+            <p>No images added yet</p>
+          </div>
+        )}
 
-      <button className="add-event-button" onClick={() => setShowForm(true)}>
-        + Add Photos
-      </button>
+        <button className="add-photos-btn" onClick={() => setShowForm(true)}>
+          <span className="plus-icon">+</span> Add Photos
+        </button>
+      </section>
 
       {showForm && (
         <UpdateGalleryForm
@@ -112,6 +161,14 @@ export default function Event() {
           }}
           onCancel={() => setShowForm(false)}
         />
+      )}
+
+      {currentImage && (
+        <div className="image-modal" onClick={() => setCurrentImage(null)}>
+          <div className="modal-content">
+            <img src={currentImage} alt="Enlarged view" />
+          </div>
+        </div>
       )}
     </div>
   );

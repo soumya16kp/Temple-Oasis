@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import './addEventForm.css';
+import './selectEventForm.css';
 import eventService from '../../appwrite/eventsService';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 export default function SelectEventForm({ onCreated, onCancel }) {
   const [events, setEvents] = useState([]);
   const [selectedEventId, setSelectedEventId] = useState('');
@@ -10,7 +11,6 @@ export default function SelectEventForm({ onCreated, onCancel }) {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Load events when component mounts
   useEffect(() => {
     getEvents();
   }, []);
@@ -57,7 +57,7 @@ export default function SelectEventForm({ onCreated, onCancel }) {
       }
 
       await eventService.updateEvent(selectedEventId, {
-        photoIds: uploadedPhotoIds,
+        ImageIds: uploadedPhotoIds,
       });
 
       setMessage('Event updated successfully!');
@@ -105,7 +105,7 @@ export default function SelectEventForm({ onCreated, onCancel }) {
             <div key={idx} className="photo-preview">
               <img src={url} alt="preview" height={100} />
               <button type="button" onClick={() => handleRemovePhoto(idx)}>
-                Remove
+                <FontAwesomeIcon icon={faMinusCircle} />
               </button>
             </div>
           ))}

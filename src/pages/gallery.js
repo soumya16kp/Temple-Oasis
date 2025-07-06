@@ -5,6 +5,25 @@ import eventService from '../appwrite/eventsService';
 import { useNavigate } from 'react-router-dom';
 import './gallery.css';
 
+function getFormatDate(inputDate) {
+    if (!inputDate) return '';
+    const date = new Date(inputDate);
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(date.getTime() + istOffset);
+
+    const day = String(istTime.getDate()).padStart(2, '0');
+    const month = String(istTime.getMonth() + 1).padStart(2, '0');
+    const year = istTime.getFullYear();
+
+    let hours = istTime.getHours();
+    const minutes = String(istTime.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    hours = String(hours).padStart(2, '0');
+
+    return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
+  }
 function EventCard({ event,onClick }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const photos = event.ImageIds || [];
@@ -35,6 +54,7 @@ function EventCard({ event,onClick }) {
       )}
       <div className="event-card-body">
         <h3 className="event-card-title">{event.Title}</h3>
+        <p className='semiheader'><strong>Venue Date : {getFormatDate(event.EventDate)}</strong></p>
         <p className="event-card-description">{event.Description}</p>
       </div>
     </div>
@@ -81,7 +101,7 @@ export default function Gallery() {
       </div>
 
       {showForm && (
-        <AddEventForm
+        <SelectEventForm
           onCreated={handleEventCreated}
           onCancel={() => setShowForm(false)}
         />
@@ -99,7 +119,6 @@ export default function Gallery() {
            />
         ))}
       </div>
-      <SelectEventForm/>
     </div>
   );
 }

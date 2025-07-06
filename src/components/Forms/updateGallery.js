@@ -78,7 +78,7 @@ export default function UpdateGalleryForm({id,event, onCreated, onCancel }) {
 
         <div className="form-actions">
           <button type="submit" disabled={saving}>
-            {saving ? 'Saving...' : 'Save Event'}
+            {saving ? 'Saving...' : 'Save Photos'}
           </button>
           <button type="button" onClick={onCancel} disabled={saving}>
             Cancel
