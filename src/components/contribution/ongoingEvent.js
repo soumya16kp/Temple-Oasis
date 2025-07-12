@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import templeService from '../../appwrite/templeService';
 import eventsService from '../../appwrite/eventsService';
+import AddEventForm from '../Forms/addEventForm';
 import './ongoingEvent.css';
 
 export default function OngoingEvents({ userId }) {
@@ -12,6 +13,8 @@ export default function OngoingEvents({ userId }) {
   const [activeMenuEventId, setActiveMenuEventId] = useState(null);
   const [newDate, setNewDate] = useState('');
   const [ongoingEvent, setOngoingEvent] = useState(true);
+  const[ShowForm,setShowForm]=useState(false);
+
 
   useEffect(() => {
     fetchEvents();
@@ -124,14 +127,29 @@ export default function OngoingEvents({ userId }) {
     <div className="events-dashboard">
       <header className="dashboard-header">
         <h1>{ongoingEvent ? 'Ongoing Events' : 'Completed Events'}</h1>
-        <button 
-          className="toggle-events-btn"
-          onClick={handlePreviousEvents}
-        >
-          {ongoingEvent ? 'Show Completed Events' : 'Show Ongoing Events'}
-        </button>
-      </header>
+        <div className="contribution-nav-bar">
+          {!ShowForm && <button 
+            className='toggle-events-btn'
+            onClick={()=> setShowForm(true)}
 
+          >Add an event</button>}
+          
+          <button 
+            className="toggle-events-btn"
+            onClick={handlePreviousEvents}
+          >
+            {ongoingEvent ? 'Show Completed Events' : 'Show Ongoing Events'}
+          </button> 
+        </div>
+      </header>
+      <div>
+        {ShowForm && (
+        <AddEventForm
+          onCreated={() => setShowForm(false)}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
+      </div>
       <div className="events-grid">
         {events
           .filter(ev => ongoingEvent ? ev.status === 'active' : ev.status === 'completed')

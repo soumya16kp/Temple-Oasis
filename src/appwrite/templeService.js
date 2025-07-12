@@ -48,7 +48,15 @@ const templeService = {
       conf.appwriteCollectionDonationId,
       queries
     );
-  }
+  },
+
+  getDonationsByUser: async(userid)=>{
+    return await databases.listDocuments(
+      conf.appwriteDatabaseId,
+      conf.appwriteCollectionDonationId,
+      [Query.equal("UserId",[userid])],
+    );
+  },
 };
 
 export default templeService;

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import './account.css';
 import userService from '../appwrite/userService';
 import authService from '../appwrite/authService';
+import YourContributions from '../components/contribution/yourContribution';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/AuthSlice';
 
@@ -146,92 +147,98 @@ const Account = () => {
           {toastMessage}
         </div>
       )}
+      <div>
+        <div className="card">
+          <div className="photo-section">
+            <img
+              src={ userService.getFilePreview(formData.photo)}
+              alt="Profile"
+              className="profile-photo"
+            />
 
-      <div className="card">
-        <div className="photo-section">
-          <img
-            src={ userService.getFilePreview(formData.photo)}
-            alt="Profile"
-            className="profile-photo"
-          />
+            {isEditing && (
+              <label className="photo-upload">
+                Change Photo
+                <input type="file" accept="image/*" onChange={handlePhotoChange} />
+              </label>
+            )}
+          </div>
 
-          {isEditing && (
-            <label className="photo-upload">
-              Change Photo
-              <input type="file" accept="image/*" onChange={handlePhotoChange} />
-            </label>
-          )}
+          <div className="info-section">
+            <div className="field">
+              <label>Name</label>
+              {isEditing ? (
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              ) : (
+                <span>{user.name}</span>
+              )}
+            </div>
+
+            <div className="field">
+              <label>Email</label>
+              {isEditing ? (
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              ) : (
+                <span>{user.email}</span>
+              )}
+            </div>
+
+            <div className="field">
+              <label>Contact</label>
+              {isEditing ? (
+                <input
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleChange}
+                />
+              ) : (
+                <span>{user.contact}</span>
+              )}
+            </div>
+
+            <div className="field">
+              <label>Designation</label>
+              {isEditing ? (
+                <input
+                  name="designation"
+                  value={formData.designation}
+                  onChange={handleChange}
+                />
+              ) : (
+                <span>{user.designation}</span>
+              )}
+            </div>
+
+            <button
+              onClick={handleEditToggle}
+              className="edit-button"
+              disabled={saving}
+            >
+              {isEditing ? (saving ? 'Saving...' : 'Save') : 'Edit'}
+            </button>
+
+            <button
+              onClick={LogoutHandler}
+              className="logout-btn"
+            >
+              Logout
+            </button>
+          </div>
         </div>
-
-        <div className="info-section">
-          <div className="field">
-            <label>Name</label>
-            {isEditing ? (
-              <input
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            ) : (
-              <span>{user.name}</span>
-            )}
-          </div>
-
-          <div className="field">
-            <label>Email</label>
-            {isEditing ? (
-              <input
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            ) : (
-              <span>{user.email}</span>
-            )}
-          </div>
-
-          <div className="field">
-            <label>Contact</label>
-            {isEditing ? (
-              <input
-                name="contact"
-                value={formData.contact}
-                onChange={handleChange}
-              />
-            ) : (
-              <span>{user.contact}</span>
-            )}
-          </div>
-
-          <div className="field">
-            <label>Designation</label>
-            {isEditing ? (
-              <input
-                name="designation"
-                value={formData.designation}
-                onChange={handleChange}
-              />
-            ) : (
-              <span>{user.designation}</span>
-            )}
-          </div>
-
-          <button
-            onClick={handleEditToggle}
-            className="edit-button"
-            disabled={saving}
-          >
-            {isEditing ? (saving ? 'Saving...' : 'Save') : 'Edit'}
-          </button>
-
-          <button
-            onClick={LogoutHandler}
-            className="logout-btn"
-          >
-            Logout
-          </button>
+        <div className='user-contribution'>{
+          <YourContributions userId={accountId}/> 
+        }    
         </div>
       </div>
+      
     </div>
   );
 };

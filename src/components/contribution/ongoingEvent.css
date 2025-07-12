@@ -104,7 +104,11 @@
   display: flex;
   gap: 0.75rem;
 }
-
+.contribution-nav-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 .donate-btn {
   background: var(--gold-light);
   color: var(--gold-dark);

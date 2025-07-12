@@ -59,38 +59,42 @@ export class Service{
     }
 
 
-async updateUser(userId, updatedFields) {
-  try {
+    async updateUser(userId, updatedFields) {
+    try {
 
-    const existingUser = await this.getUser(userId);
-    const documentId = existingUser.$id;
+        const existingUser = await this.getUser(userId);
+        const documentId = existingUser.$id;
 
-    const newData = {
-      ...existingUser,
-      ...updatedFields
-    };
+        const newData = {
+        ...existingUser,
+        ...updatedFields
+        };
 
-    for (const key in newData) {
-        if (key.startsWith('$')) {
-            delete newData[key];
+        for (const key in newData) {
+            if (key.startsWith('$')) {
+                delete newData[key];
+            }
         }
+
+
+        return await this.databases.updateDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        documentId,
+        newData
+        );
+
+    } catch (error) {
+        console.error("Appwrite service :: updateUser error", error);
+        throw error;
     }
-
-
-    return await this.databases.updateDocument(
-      conf.appwriteDatabaseId,
-      conf.appwriteCollectionId,
-      documentId,
-      newData
-    );
-
-  } catch (error) {
-    console.error("Appwrite service :: updateUser error", error);
-    throw error;
-  }
-}
-
-
+    }
+    async listUsers(){
+        return await this.databases.listDocuments(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId
+        );
+    }
 
     async uploadFile(file){
         try {
@@ -114,8 +118,6 @@ async updateUser(userId, updatedFields) {
             return false;
         }
     }
-
-    
     getFilePreview(fileId){
         return this.bucket.getFileView(
             conf.appwriteBucketId,

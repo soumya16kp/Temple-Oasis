@@ -1,55 +1,66 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './trustees.css';
+import userService from '../appwrite/userService';
 
-
-function TrusteeCard({ name, role, email, phone, image }) {
+function TrusteeCard({ Name, Position, Email, Mobile, Image }) {
   return (
     <div className="trustee-card">
-      <img src={image} alt={name} className="trustee-photo" />
-      <h3 className="trustee-name">{name}</h3>
-      {role && <p className="trustee-role">{role}</p>}
+      {Image && (
+        <img
+          src={Image}
+          alt={Name}
+          className="trustee-photo"
+        />
+      )}
+      <h3 className="trustee-name">{Name}</h3>
+      {Position && <p className="trustee-role">{Position}</p>}
       <div className="trustee-contact">
-        <p><strong>Email:</strong> {email}</p>
-        <p><strong>Phone:</strong> {phone}</p>
+        <p><strong>Email:</strong> {Email}</p>
+        {Mobile && <p><strong>Phone:</strong> {Mobile}</p>}
       </div>
     </div>
   );
 }
 
-// 🧩 Trustees Page
 function Trustees() {
-  const trusteesData = [
-    {
-      name: "Shri Ram Sharma",
-      role: "Chairman",
-      email: "ram.sharma@example.com",
-      phone: "+91 98765 43210",
-      image: "https://randomuser.me/api/portraits/men/65.jpg",
-    },
-    {
-      name: "Smt. Lata Devi",
-      role: "Vice Chairperson",
-      email: "lata.devi@example.com",
-      phone: "+91 98765 12345",
-      image: "https://randomuser.me/api/portraits/women/65.jpg",
-    },
-    {
-      name: "Dr. Mohan Das",
-      role: "Treasurer",
-      email: "mohan.das@example.com",
-      phone: "+91 98222 33445",
-      image: "https://randomuser.me/api/portraits/men/48.jpg",
-    },
-  ];
+  const [trusteesData, setTrusteesData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchTrustees() {
+      try {
+        const data = await userService.listUsers();
+        const processed = (data.documents || []).map(doc => ({
+          ...doc,
+          Image: doc.Image ? userService.getFilePreview(doc.Image) : null
+        }));
+
+        setTrusteesData(processed);
+      } catch (error) {
+        console.error('Error fetching trustees:', error);
+        setTrusteesData([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTrustees();
+  }, []);
 
   return (
     <section className="trustees-page">
       <h2>Meet Our Trustees</h2>
-      <div className="trustee-grid">
-        {trusteesData.map((trustee) => (
-          <TrusteeCard key={trustee.email} {...trustee} />
-        ))}
-      </div>
+      {loading ? (
+        <p>Loading trustees...</p>
+      ) : trusteesData.length === 0 ? (
+        <p>No trustees found.</p>
+      ) : (
+        <div className="trustee-grid">
+          {trusteesData.map((trustee) => (
+            <TrusteeCard key={trustee.Email} {...trustee} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

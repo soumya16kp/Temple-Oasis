@@ -1,0 +1,62 @@
+:root {
+  --background-color: #fdf6e3;
+  --card-background: #f8e1c4;
+  --card-border: #e0b07f;
+  --text-color: #5c3a1c;
+  --accent-color: #a06035;
+  --amount-color: #8b4513;
+}
+
+.your-contributions {
+  padding: 2rem;
+  background-color: var(--background-color);
+  text-align: center;
+  color: var(--text-color);
+}
+
+.your-contributions h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+.contribution-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+.contribution-card {
+  background-color: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(92, 58, 28, 0.2);
+  padding: 1rem;
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.contribution-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(92, 58, 28, 0.3);
+}
+
+.contribution-amount {
+  font-size: 1.5rem;
+  color: var(--amount-color);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.contribution-date {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.contribution-message {
+  font-style: italic;
+  color: #7a4e2d;
+}
