@@ -68,17 +68,7 @@ const Account = () => {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
-  const validateForm = () => {
-    if (!formData.name.trim()) {
-      showToast('Name is required.');
-      return false;
-    }
-    if (!formData.email.trim()) {
-      showToast('Email is required.');
-      return false;
-    }
-    return true;
-  };
+ 
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -106,8 +96,6 @@ const Account = () => {
 
   const handleEditToggle = async () => {
     if (isEditing) {
-      if (!validateForm()) return;
-
       try {
         setSaving(true);
         await userService.updateUser(accountId, {
@@ -147,7 +135,18 @@ const Account = () => {
           {toastMessage}
         </div>
       )}
-      <div>
+      <div className='user-header'>
+        <h2>My Account</h2>
+        <button
+              onClick={LogoutHandler}
+              className="logout-btn"
+            >
+              Logout
+        </button>
+      </div>
+      
+      <div className='user-interface'>
+        
         <div className="card">
           <div className="photo-section">
             <img
@@ -223,13 +222,6 @@ const Account = () => {
               disabled={saving}
             >
               {isEditing ? (saving ? 'Saving...' : 'Save') : 'Edit'}
-            </button>
-
-            <button
-              onClick={LogoutHandler}
-              className="logout-btn"
-            >
-              Logout
             </button>
           </div>
         </div>

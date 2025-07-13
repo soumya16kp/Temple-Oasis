@@ -2,12 +2,20 @@ import { useEffect, useState } from 'react';
 import templeService from '../../appwrite/templeService';
 import './yourContributions.css';
 
-function ContributionCard({ amount, date, message }) {
+function ContributionCard({ amount, date }) {
+  // Format date nicely
+  const formattedDate = date
+    ? new Date(date).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : 'Unknown Date';
+
   return (
     <div className="contribution-card">
       <h3 className="contribution-amount">₹ {amount}</h3>
-      <p className="contribution-date">{date}</p>
-      {message && <p className="contribution-message">{message}</p>}
+      <p className="contribution-date">{formattedDate}</p>
     </div>
   );
 }
@@ -37,9 +45,9 @@ export default function YourContributions({ userId }) {
       <h2>Your Past Contributions</h2>
       
       {contributions.length === 0 ? (
-        <p>You have not made any contributions yet.</p>
+        <p className="no-contributions">You have not made any contributions yet.</p>
       ) : (
-        <div className="contribution-grid">
+        <div className="contribution-list">
           {contributions.map(contribution => (
             <ContributionCard
               key={contribution.$id}

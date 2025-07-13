@@ -1,62 +1,79 @@
 :root {
-  --background-color: #fdf6e3;
-  --card-background: #f8e1c4;
-  --card-border: #e0b07f;
-  --text-color: #5c3a1c;
-  --accent-color: #a06035;
-  --amount-color: #8b4513;
+  --background: #fff9f3;
+  --accent: #b8773c;
+  --card-bg: #fef1e5;
+  --card-border: #e2b183;
+  --text-dark: #5c3a1c;
+  --text-light: #9b6a43;
+  --scrollbar-thumb: #d4a16f;
+  --scrollbar-track: #f6e6d2;
 }
 
 .your-contributions {
-  padding: 2rem;
-  background-color: var(--background-color);
-  text-align: center;
-  color: var(--text-color);
+  background-color: var(--background);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(92, 58, 28, 0.1);
+  border-bottom:5px solid #d4a16f;
+  border-top:5px solid #d4a16f;
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .your-contributions h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
-  color: var(--accent-color);
+  text-align: center;
 }
 
-.contribution-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+.no-contributions {
+  text-align: center;
+  color: var(--text-light);
+  font-style: italic;
   margin-top: 2rem;
-  padding: 0 1rem;
 }
 
+/* Scrollable vertical list with smooth scrollbar */
+.your-contributions .contribution-list {
+  overflow-y: auto;
+  max-height: 600px;
+  border-top:3px solid #d3cac1;
+  border-radius: 0%;
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Custom scrollbar */
+.contribution-list::-webkit-scrollbar {
+  display: none;
+}
+/* Card style */
 .contribution-card {
-  background-color: var(--card-background);
-  border: 1px solid var(--card-border);
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(92, 58, 28, 0.2);
+  background-color: var(--card-bg);
+  border-radius: 10px;
   padding: 1rem;
-  text-align: left;
+  box-shadow: 0 2px 6px rgba(92, 58, 28, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .contribution-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(92, 58, 28, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(92, 58, 28, 0.15);
+  
 }
 
 .contribution-amount {
   font-size: 1.5rem;
-  color: var(--amount-color);
-  margin-bottom: 0.5rem;
+  color: var(#333333);
   font-weight: bold;
+  margin-bottom: 0%;
 }
 
 .contribution-date {
-  color: var(--text-color);
   font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-}
-
-.contribution-message {
-  font-style: italic;
-  color: #7a4e2d;
+  color: var(--text-dark);
 }
