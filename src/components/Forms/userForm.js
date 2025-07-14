@@ -1,11 +1,11 @@
-import { useEffect } from "react";
 import {useForm} from "react-hook-form";
 import userService from "../../appwrite/userService";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useCallback } from "react";
+import './userForm.css'
 
-function userForm({post}) {
+function UserForm({post}) {
     const { register, handleSubmit} = useForm({
         defaultValues: {
             Name: post?.Name || "", 
@@ -18,13 +18,9 @@ function userForm({post}) {
     
     const navigate = useNavigate();
     const userData = useSelector(state=> state.auth.userData);
-    useEffect(() => {
-        console.log("User Data:", userData);
-    }, [userData]);
 
     const Submit = async (data) => {
         try {
-          console.log("Data before submitting:", data);
           const slug = slugTransform(data.Name || "");
 
           if (post) {
@@ -134,4 +130,4 @@ function userForm({post}) {
   )
 }
 
-export default userForm;
+export default UserForm;

@@ -17,12 +17,12 @@ body {
 
 /* Hero Section */
 .hero {
-  padding: 2rem 1rem;
-  border-radius: 12px;
+  padding: 2rem 0.5rem;
   box-shadow: 0 4px 8px rgba(255, 199, 80, 0.2);
   text-align: center;
+  border-radius: 8px;
   margin-bottom: 2rem;
-  height: 350px;
+  height: 520px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,7 +31,7 @@ body {
 .hero h1 {
   font-family: 'Cinzel', serif;
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
   line-height: 1.2;
 }
 
@@ -42,7 +42,7 @@ body {
 .hero p {
   font-size: 1rem;
   color: #5c4c2d;
-  margin-bottom: 1.5rem;
+  margin-bottom: 10rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -184,8 +184,8 @@ body {
 /* =========== Mobile Specific ============ */
 @media (max-width: 600px) {
   .hero {
-    height: auto;
-    padding: 2rem 1rem;
+    height:500px;
+    padding: 1rem 1rem;
   }
 
   .hero h1 {
@@ -193,11 +193,12 @@ body {
   }
 
   .hero p {
+    margin-top: 2rem;
+    margin-bottom: 6rem;
     font-size: 0.95rem;
   }
 
   .primary-btn, .secondary-btn {
-    width: 100%;
     max-width: 250px;
     font-size: 0.95rem;
   }

@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;500&display=swap');
 
 .footer {
-  background: linear-gradient(to right, #fff7d6, #fff2bc);
+  background: linear-gradient(to left, #fffbe8, #f9d5a9);
   color: #4e3c1c;
   font-family: 'Poppins', sans-serif;
   padding: 2rem 1rem 1rem;
-  border-top: 1px solid #f2db8f;
+  border-top: 3px solid #fcfcfa;
   box-shadow: 0 -3px 8px rgba(220, 190, 100, 0.1);
 }
 
@@ -21,7 +21,7 @@
 
 .footer-brand h2 {
   font-family: 'Cinzel', serif;
-  color: #d4a900;
+  color: #4e3c1c;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
 }

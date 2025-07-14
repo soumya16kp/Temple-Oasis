@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {SelectEventForm} from '../components';
 import eventService from '../appwrite/eventsService';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../components/loading';
 import './gallery.css';
 
 function getFormatDate(inputDate) {
@@ -107,7 +108,7 @@ export default function Gallery() {
         />
       )}
 
-      {loading && <p>Loading events...</p>}
+      {loading && <Loading/>}
       {message && <p>{message}</p>}
 
       <div className="events-list">

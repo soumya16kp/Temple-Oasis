@@ -2,22 +2,23 @@
 
 import { useEffect, useState } from 'react';
 import './account.css';
+import UserForm from '../components/Forms/userForm';
 import userService from '../appwrite/userService';
 import authService from '../appwrite/authService';
 import YourContributions from '../components/contribution/yourContribution';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/AuthSlice';
+import Loading from '../components/loading';
 
 
 const Account = () => {
-
-
   const dispatch=useDispatch();
   const LogoutHandler = async () => {
-        await authService.logout();
-        dispatch(logout());
+      await authService.logout();
+      dispatch(logout());
   };
   
+  const [newUser,setNewUser]=useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -53,8 +54,7 @@ const Account = () => {
         setUser(safeUser);
         setFormData(safeUser);
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        showToast('Failed to load user data');
+        setNewUser(true);
       } finally {
         setLoading(false);
       }
@@ -68,8 +68,6 @@ const Account = () => {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
- 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -123,12 +121,12 @@ const Account = () => {
   if (loading) {
     return (
       <div className="account-page">
-        <p>Loading...</p>
+        <Loading/>
       </div>
     );
   }
-
-  return (
+  
+  return newUser?(< UserForm/>):(
     <div className="account-page">
       {toastMessage && (
         <div className="toast">
@@ -232,7 +230,7 @@ const Account = () => {
       </div>
       
     </div>
-  );
+  )
 };
 
 export default Account;

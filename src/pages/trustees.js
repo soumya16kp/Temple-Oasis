@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Loading from '../components/loading';
 import './trustees.css';
 import userService from '../appwrite/userService';
 
@@ -51,7 +52,7 @@ function Trustees() {
     <section className="trustees-page">
       <h2>Meet Our Trustees</h2>
       {loading ? (
-        <p>Loading trustees...</p>
+          <Loading/>
       ) : trusteesData.length === 0 ? (
         <p>No trustees found.</p>
       ) : (

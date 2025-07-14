@@ -1,0 +1,67 @@
+.quote-section {
+  background: linear-gradient(to left, #fffbe8, #f5dbba);
+  border-top: 3px solid #fbfbfa;
+  padding: 2rem 1rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+  flex-wrap: wrap;
+}
+
+.quote-header h3 {
+  font-size: 1.5rem;
+  color: #343131;
+  margin: 0.5rem 0;
+}
+
+.new-quote-btn {
+  background-color: #f6d55c;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #494343;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.new-quote-btn:hover {
+  background-color: #f1c860;
+}
+
+.quote-card {
+  background-color: #fffbe8;
+  border: 2px solid #fbfbfa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.quote-card blockquote {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #494343;
+  margin: 0;
+}
+
+.quote-card footer {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: #343131;
+}
+
+.quote-card.error {
+  border-color: #f44336;
+  background-color: #ffeaea;
+  color: #c62828;
+}

@@ -107,6 +107,15 @@ const router = createBrowserRouter([
                 </AuthLayout>
             ),
         },
+        {
+            path:"/user/:id",
+            element:(
+                <AuthLayout authentication>
+                     {" "}
+                     <Account/>
+                </AuthLayout>
+            ),
+        },
     ]
   },
 ])

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { UpdateGalleryForm } from '../components';
 import eventService from '../appwrite/eventsService';
 import Masonry from 'react-masonry-css';
+import Loading from '../components/loading';
 import './event.css';
 
 export default function Event() {
@@ -50,7 +51,7 @@ export default function Event() {
   if (loading) {
     return (
       <div className="loading-container">
-        <div className="spinner"></div>
+        <Loading/>
       </div>
     );
   }

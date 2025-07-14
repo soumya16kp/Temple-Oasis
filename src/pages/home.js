@@ -1,5 +1,6 @@
 import { FiInfo, FiUsers, FiImage, FiHeart } from "react-icons/fi";
 import "./home.css";
+import Quotes from "../components/quotes/quotes";
 import herobackground from '../images/Flux_Dev_a_stunning_illustration_of_A_peaceful_temple_at_sunri_1.jpg';
 function HomePage() {
   return (
@@ -35,6 +36,7 @@ function HomePage() {
         <div className="quote-card error">
           ❗<strong> Error</strong>: Could not fetch an inspirational message at this time. Please try again later.
         </div>
+        <Quotes></Quotes>
       </section>
 
       {/* Explore Section */}

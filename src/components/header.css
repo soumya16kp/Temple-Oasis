@@ -1,112 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Poppins:wght@400;500&display=swap');
-
-
-/* Header container */
 .header {
   background: linear-gradient(to left, #fffbe8, #f9d5a9);
-  color: #4b3d1f;
-  padding: 1rem 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Poppins', sans-serif;
   border-bottom: 3px solid #fbfbfa;
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Logo / Brand */
 .brand {
-  font-size: 2.25rem;
-  font-weight:500;
-  font-family: 'poppins','serif' ; 
-  color: #212020;
-  letter-spacing: 1.2px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #3b3737;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Navigation */
-.nav-links {
+/* DESKTOP header */
+.desktop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+}
+
+.desktop-header .nav-container {
+  display: flex;
+}
+
+.desktop-header .nav-links {
   display: flex;
   list-style: none;
-  gap: 1.2rem;
+  gap: 1rem;
 }
 
-.nav-item {
-  position: relative;
-}
-
-.nav-button {
-  background: none;
+.desktop-header .nav-button {
+  background-color: #f6d55c;
   border: none;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  font-size: 1.25rem;
-  color: #4b3d1f;
+  padding: 0.5rem 1rem;
   border-radius: 10px;
+  font-size: 1rem;
+  color: #494343;
+  font-weight: 500;
+  cursor: pointer;
   transition: all 0.3s ease;
-  font-weight: 700;
-  background-color: transparent;
 }
 
-.nav-button:hover {
+.desktop-header .nav-button:hover {
   background-color: #f1c860;
   color: #f1efea;
-  box-shadow: 0 2px 6px rgba(200, 150, 20, 0.2);
-  transform: translateY(-1px);
 }
 
-/* Logout button – styled differently */
-.nav-item:last-child .nav-button {
-  background-color: #f6d55c;
-  color: #3a2c12;
-  font-weight: 600;
-  border: 1px solid #eac84b;
-  padding: 0.6rem 1.2rem;
-}
-
-.nav-item:last-child .nav-button:hover {
-  background-color: #e4bb38;
-  color: #241b0a;
-}
 .account-button {
   background: none;
   border: none;
-  font-size: 1.2rem;
   cursor: pointer;
   padding: 0.5rem;
-  transition: color 0.2s;
+  font-size: 1.2rem;
 }
 
-.account-button:hover {
-  color: #f0b400; /* Yellow theme accent */
+/* MOBILE header */
+.mobile-header {
+  padding: 0.8rem 1.5rem;
 }
 
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem 1.5rem;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 0.8rem;
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  .nav-button {
-    width: 100%;
-    text-align: left;
-    background-color: transparent;
-  }
-
-  .nav-item:last-child .nav-button {
-    width: 100%;
-    text-align: center;
-  }
+.mobile-menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #494343;
+  margin-left: auto;
 }
 
+.mobile-header .nav-container {
+  background: linear-gradient(to left, #fffbe8, #f5dbba);
+  padding: 1rem 1.5rem;
+  border-top: 2px solid #fbfbfa;
+}
+
+.mobile-header .nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-header .nav-button {
+  background-color: #f6d55c;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #494343;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobile-header .nav-button:hover {
+  background-color: #f1c860;
+  color: #f1efea;
+}
