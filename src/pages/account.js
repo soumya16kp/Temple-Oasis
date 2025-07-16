@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import './account.css';
+import defaultUserProfile from '../images/sbcf-default-avatar.png'
 import UserForm from '../components/Forms/userForm';
 import userService from '../appwrite/userService';
 import authService from '../appwrite/authService';
@@ -148,11 +149,10 @@ const Account = () => {
         <div className="card">
           <div className="photo-section">
             <img
-              src={ userService.getFilePreview(formData.photo)}
+              src={formData?.photo ? userService.getFilePreview(formData.photo) : defaultUserProfile}
               alt="Profile"
               className="profile-photo"
             />
-
             {isEditing && (
               <label className="photo-upload">
                 Change Photo

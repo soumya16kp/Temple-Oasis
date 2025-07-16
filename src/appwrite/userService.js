@@ -15,7 +15,7 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-    async createUser({Name,Email,Mobile,Position,Rank=2,UserID,slug}){
+    async createUser({Name,Email,Mobile,Position,UserID,slug}){
         try{
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -26,7 +26,6 @@ export class Service{
                     Email,
                     Mobile,
                     Position,
-                    Rank,
                     UserID,
                 }
             )

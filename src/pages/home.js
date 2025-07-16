@@ -1,11 +1,14 @@
 import { FiInfo, FiUsers, FiImage, FiHeart } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 import Quotes from "../components/quotes/quotes";
 import herobackground from '../images/Flux_Dev_a_stunning_illustration_of_A_peaceful_temple_at_sunri_1.jpg';
+import spiritualLady from '../images/pngtree-spiritual-clipart-jaya-vector-png-image_11070538.png'
+
 function HomePage() {
+  const navigate = useNavigate();
   return (
     <div className="home-wrapper">
-      {/* Hero Section */}
       <section
         className="hero"
         style={{
@@ -22,22 +25,23 @@ function HomePage() {
           A sanctuary of peace, spirituality, and community. Discover tranquility and connect with timeless traditions.
         </p>
         <div className="hero-buttons">
-          <button className="primary-btn">Learn More →</button>
-          <button className="secondary-btn">Support Us</button>
+          <button className="primary-btn" onClick={() => navigate('/about')}>
+            Learn More →
+          </button>
+          <button className="secondary-btn" onClick={() => navigate('/contribution')}>
+            Support Us
+          </button>
         </div>
+
       </section>
 
       {/* Inspirational Message */}
       <section className="quote-section">
-        <div className="quote-header">
-          <h3>🌟 A Moment of Inspiration</h3>
-          <button className="new-quote-btn">New Quote</button>
-        </div>
-        <div className="quote-card error">
-          ❗<strong> Error</strong>: Could not fetch an inspirational message at this time. Please try again later.
-        </div>
-        <Quotes></Quotes>
+        <Quotes />
       </section>
+      <div className="image-container">
+        <img src={spiritualLady} alt="Spiritual Lady" className="spiritual-lady-img" />
+      </div>
 
       {/* Explore Section */}
       <section className="explore-section"

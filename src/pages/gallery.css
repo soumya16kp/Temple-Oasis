@@ -1,10 +1,12 @@
+
+
 .gallery-container {
-  max-width: 1200px;
+  width:100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 6rem;
   font-family: 'Poppins', sans-serif;
-  background-color: #fffdf7;
-  color: #333;
+  background-color:#fdefc8;
+  
 }
 
 .gallery-header {
@@ -12,7 +14,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  border-bottom: 2px solid #e5c76b;
+  border-bottom: 2px solid #a58422;
   padding-bottom: 1rem;
 }
 
@@ -27,7 +29,7 @@
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

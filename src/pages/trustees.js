@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import Loading from '../components/loading';
-import './trustees.css';
 import userService from '../appwrite/userService';
+import './trustees.css';
+import defaultUserProfile from '../images/sbcf-default-avatar.png'
 
 function TrusteeCard({ Name, Position, Email, Mobile, Image }) {
   return (
     <div className="trustee-card">
-      {Image && (
+      {(
         <img
-          src={Image}
+          src={Image||defaultUserProfile}
           alt={Name}
           className="trustee-photo"
         />
@@ -44,26 +45,28 @@ function Trustees() {
         setLoading(false);
       }
     }
-
     fetchTrustees();
   }, []);
 
-  return (
-    <section className="trustees-page">
-      <h2>Meet Our Trustees</h2>
-      {loading ? (
-          <Loading/>
-      ) : trusteesData.length === 0 ? (
-        <p>No trustees found.</p>
-      ) : (
-        <div className="trustee-grid">
-          {trusteesData.map((trustee) => (
+  return loading ? (
+  <Loading />
+) : (
+  <section className="trustees-page">
+    <h2>Meet Our Trustees</h2>
+    {trusteesData.length === 0 ? (
+      <p>No trustees found</p>
+    ) : (
+      <div className="trustee-grid">
+        {trusteesData
+          .filter((trustee) => trustee.Rank === 2)
+          .map((trustee) => (
             <TrusteeCard key={trustee.Email} {...trustee} />
           ))}
-        </div>
-      )}
-    </section>
-  );
+      </div>
+    )}
+  </section>
+);
+
 }
 
 export default Trustees;

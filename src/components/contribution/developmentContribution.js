@@ -29,6 +29,10 @@ export default function DevelopmentContribution({ userId }) {
   };
 
   const handleDonate = async () => {
+     if (!amount || amount.trim() === '') {
+      alert('Donation cannot be empty!');
+      return;
+    }
     await templeService.addDonation({
       userId,
       eventId: '',
@@ -56,6 +60,7 @@ export default function DevelopmentContribution({ userId }) {
 
     return `${day}/${month}/${year} ${hours}:${minutes}`;
   }  
+
   return (
     <div className="section">
       <h2>Contribute towards Development</h2>

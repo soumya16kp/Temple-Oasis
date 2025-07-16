@@ -77,21 +77,27 @@ export default function CommoditiesContribution({ userId }) {
   return (
     <div className="section">
       <h2>Commodities Contribution</h2>
+      <form onSubmit={handlePledge}>
       <div className="commodities-form">
+        
         <input
           type="text"
           placeholder="Item Name"
           value={item}
           onChange={(e) => setItem(e.target.value)}
+          required
         />
         <input
           type="number"
           placeholder="Quantity"
           value={qty}
+          required
           onChange={(e) => setQty(e.target.value)}
+          
         />
-        <button onClick={handlePledge}>Pledge</button>
+        <button type="submit">Pledge</button>
       </div>
+      </form>
       <h3>Previous Commodities Contributions</h3>
       <ul className="contribution-list">
         {pledges.map(p => (

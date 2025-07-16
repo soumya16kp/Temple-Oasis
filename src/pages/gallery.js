@@ -113,7 +113,9 @@ export default function Gallery() {
 
       <div className="events-list">
         {events.length === 0 && !loading && <p>No events found.</p>}
-        {events.map(event => (
+        {events
+        .filter(event => Array.isArray(event.ImageIds) && event.ImageIds.length > 0)  
+        .map(event => (
           <EventCard 
             key={event.$id} event={event}
             onClick={()=>navigate(`/gallery/${event.$id}`)}
