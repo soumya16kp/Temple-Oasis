@@ -17,11 +17,16 @@ h3{
 /* Form layout: center with gap */
 .dev-form {
   display: flex;
+  background-color: #fff7d9;
+  max-width: 500px;
+  padding: 2rem 5rem;
   justify-content: center;
   align-items: center;
+  border-radius: 12px;
   gap: 1rem;
   flex-wrap: wrap;
   margin-bottom: 2rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Input styling */

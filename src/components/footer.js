@@ -1,8 +1,11 @@
 
 import './footer.css';
+import { useNavigate } from 'react-router-dom';
 import { FaFacebookF, FaInstagram, FaEnvelope } from 'react-icons/fa';
 
+
 function Footer() {
+  const navigate=useNavigate();
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -15,10 +18,10 @@ function Footer() {
 
         {/* Links */}
         <div className="footer-links">
-          <a href="#">About</a>
-          <a href="#">Trustees</a>
-          <a href="#">Gallery</a>
-          <a href="#">Contact</a>
+          <a href="/about">About</a>
+          <a href="/Trustees">Trustees</a>
+          <a href="/Gallery">Gallery</a>
+          <a href="/Contact">Contact</a>
         </div>
 
         {/* Social Icons */}

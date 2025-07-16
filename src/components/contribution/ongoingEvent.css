@@ -1,7 +1,7 @@
 /* ongoingEvent.css */
 :root {
   --gold-primary: #d4af37;
-  --gold-dark: #b89730;
+  --gold-dark: #7a621a;
   --gold-light: #f8f1d8;
   --text-dark: #2a2a2a;
   --text-light: #666;
@@ -75,6 +75,7 @@
   background: white;
   border-radius: 12px;
   border-radius: var(--border-radius);
+  
   padding: 1rem;
   box-shadow: var(--shadow-sm);
   transition: var(--transition); 
@@ -89,6 +90,7 @@
 .card-header {
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid #cbc0c0;
   align-items: flex-start;
   margin-bottom: 1.25rem;
 }
@@ -115,6 +117,7 @@
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
+  font-size: medium;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
@@ -280,7 +283,7 @@
 }
 
 .donations-container h3 {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   color: var(--gold-primary);
   margin-bottom: 1.5rem;
 }
@@ -366,6 +369,18 @@
 
   .donations-grid {
     grid-template-columns: 1fr;
+  }
+
+  .toggle-events-btn{
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+
+  }
+  .donation-card{
+    max-height: 400px;
+  }
+  .donate-btn{
+    font-size: medium;
   }
 }
 
