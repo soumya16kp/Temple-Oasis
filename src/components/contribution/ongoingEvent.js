@@ -55,7 +55,6 @@ export default function OngoingEvents({ userId }) {
       const existingAmount = thisEvent.CollectedAmount || 0;
       const updatedAmount = existingAmount + parsedAmount;
 
-      await eventsService.updateEvent(eventId, { CollectedAmount: updatedAmount });
       await templeService.addDonation({
         userId,
         eventId,
@@ -103,7 +102,7 @@ export default function OngoingEvents({ userId }) {
     if (!inputDate) return '';
     const date = new Date(inputDate);
     const istOffset = 5.5 * 60 * 60 * 1000;
-    const istTime = new Date(date.getTime() + istOffset);
+    const istTime = new Date(date.getTime());
 
     const day = String(istTime.getDate()).padStart(2, '0');
     const month = String(istTime.getMonth() + 1).padStart(2, '0');
@@ -118,6 +117,12 @@ export default function OngoingEvents({ userId }) {
 
     return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
   }
+  function getTotalDonationsForEvent(eventId) {
+  return donations
+    .filter(d => d.EventId === eventId)
+    .reduce((total, d) => total + (parseInt(d.Amount) || 0), 0);
+}
+
 
   const filteredDonations = selectedEventFilter === 'all'
     ? donations
@@ -151,6 +156,7 @@ export default function OngoingEvents({ userId }) {
       )}
       </div>
       <div className="events-grid">
+
         {events
           .filter(ev => ongoingEvent ? ev.status === 'active' : ev.status === 'completed')
           .map(event => (
@@ -207,7 +213,9 @@ export default function OngoingEvents({ userId }) {
               <div className="event-metrics">
                 <div className="metric">
                   <span className="metric-label"><strong>Status: </strong>{event.status} </span>
-                  <span className="metric-label"><strong>Collected₹: </strong>{event.CollectedAmount || '0'}</span>
+                  <span className="metric-label">
+                    <strong>Collected₹: </strong>{getTotalDonationsForEvent(event.$id)}
+                  </span>
                 </div>
                 <div className="metric">
                   <span className="metric-label">Last Date</span>

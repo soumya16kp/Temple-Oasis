@@ -1,4 +1,7 @@
+.body{
+  padding: 0%;
 
+}
 
 .gallery-container {
   width:100%;
@@ -10,6 +13,7 @@
 }
 
 .gallery-header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -87,4 +91,9 @@
   font-size: 0.95rem;
   color: #666;
   line-height: 1.5;
+}
+@media (max-width: 768px){
+  .gallery-container{
+    padding: 1rem 2rem;
+  }
 }
