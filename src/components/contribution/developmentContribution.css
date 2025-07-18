@@ -1,9 +1,8 @@
-/* Center the header */
+
 .section h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   font-family: 'Poppins', sans-serif;
-
 }
 h3{
   text-align: Center;
@@ -14,7 +13,6 @@ h3{
 
 }
 
-/* Form layout: center with gap */
 .dev-form {
   display: flex;
   background-color: #fff7d9;
@@ -29,7 +27,6 @@ h3{
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Input styling */
 .dev-form input {
   padding: 0.5rem 1rem;
   border: 1px solid #f8f1d8;
@@ -45,7 +42,6 @@ h3{
   border-color: #f9a825;
 }
 
-/* Donate button styling */
 .dev-form button {
   padding: 0.5rem 1.2rem;
   background-color: #fdd835;

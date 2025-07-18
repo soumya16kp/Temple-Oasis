@@ -60,9 +60,8 @@ export default function CommoditiesContribution({ userId }) {
   };
 
   function getFormatDate(inputDate) {
-    const date = new Date(inputDate);
-    const istOffset = 5.5 * 60 * 60 * 1000; // IST offset in ms
-    const istTime = new Date(date.getTime() + istOffset);
+    const date = new Date(inputDate)
+    const istTime = new Date(date.getTime());
 
     const day = String(istTime.getDate()).padStart(2, '0');
     const month = String(istTime.getMonth() + 1).padStart(2, '0');
