@@ -3,8 +3,8 @@ import Loading from '../components/loading';
 import userService from '../appwrite/userService';
 import './trustees.css';
 import defaultUserProfile from '../images/sbcf-default-avatar.png'
-
 function TrusteeCard({ Name, Position, Email, Mobile, Image }) {
+
   return (
     <div className="trustee-card">
       {(

@@ -126,14 +126,75 @@ body {
   color: #c0392b;
   background-color: #fff5f5;
 }
+/* Container */
+.location-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 40px auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* Image section */
 .image-container {
+  
+  flex: 1,3;
   text-align: center;
 }
 
 .spiritual-lady-img {
-  width: 400px;
-  border-radius: 8px;
+  max-width: 80%;
+  height: auto;
+  border-radius: 12px;
+
 }
+
+.lady-caption {
+  margin: 15px;
+  font-size: 34px;
+  font-weight: 400;
+  font-family: 'Cinzel', serif;
+  color: #5c4c2d;
+
+}
+.lady-caption::after {
+  content: "";
+  display: block;
+  width: 250px; /* adjust: 40px–50px */
+  height: 4px; 
+  background-color: #5c3606;
+  margin: 8px auto 0; /* centers underline */
+  border-radius: 2px; /* optional: makes ends rounded */
+}
+
+
+/* Location + Info */
+.location-card {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .location-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .location-card {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .spiritual-lady-img {
+    max-width: 80%;
+  }
+}
+
 
 /* Explore Grid */
 .explore-section h2 {
@@ -224,5 +285,80 @@ body {
 
   .explore-section h2 {
     font-size: 1.75rem;
+  }
+}
+
+
+.temple-info-card {
+  background-color: #ffffff;
+  padding: 30px 24px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.home-card-header {
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 16px;
+  font-family: 'Cinzel', serif;
+  color: #011a33;
+}
+.home-card-header::after {
+  content: "";
+  display: block;
+  width: 650px; /* adjust: 40px–50px */
+  height: 4px; 
+  background-color: #5c3606;
+  margin: 8px auto 0; /* centers underline */
+  border-radius: 2px; /* optional: makes ends rounded */
+}
+
+.temple-info-card p {
+  color: #555;
+  line-height: 1.8;
+  font-size: 1.2rem;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.info-block {
+  background-color: #f7eee0;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.info-block h3 {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+.info-block h3 svg {
+  color: #3498db; /* icon color */
+}
+
+.info-block p {
+  margin: 4px 0;
+}
+
+@media (min-width: 768px) {
+  .info-section {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .info-block {
+    flex: 1;
   }
 }

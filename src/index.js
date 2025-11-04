@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import store from './store/store'
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { AuthLayout} from './components/index.js'
 import './index.css';
