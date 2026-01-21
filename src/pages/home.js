@@ -42,29 +42,29 @@ function HomePage() {
         <Quotes />
       </section>
 
-    <div className="temple-info-card">
-    <h2 className="home-card-header">Plan Your Sacred Visit</h2>
-    
-    <p>
-      Step into a sanctuary of peace and devotion. Here’s all the essential information to make your visit serene and memorable.
-    </p>
+      <div className="temple-info-card">
+        <h2 className="home-card-header">Plan Your Sacred Visit</h2>
 
-    <div className="info-section">
-      <div className="info-block">
-        <h3><FiClock style={{ marginRight: "8px" }} />Visiting Hours</h3>
-        <p><strong>Morning:</strong> 5:00 AM – 11:00 AM</p>
-        <p><strong>Evening:</strong> 5:00 PM – 9:00 PM</p>
-        <p>Experience the morning prayers or evening rituals, and embrace the calm ambiance of the temple.</p>
-      </div>
+        <p>
+          Step into a sanctuary of peace and devotion. Here’s all the essential information to make your visit serene and memorable.
+        </p>
 
-      <div className="info-block">
-        <h3><FiPhone style={{ marginRight: "8px" }} />Contact</h3>
-        <p><strong>Phone:</strong> +91 12345 67890</p>
-        <p><strong>Email:</strong> <FiMail style={{ marginRight: "6px" }} /> info@divineoasis.org</p>
-        <p>Reach out for inquiries, temple events, or spiritual guidance. We are always happy to assist you.</p>
+        <div className="info-section">
+          <div className="info-block">
+            <h3><FiClock style={{ marginRight: "8px" }} />Visiting Hours</h3>
+            <p><strong>Morning:</strong> 5:00 AM – 11:00 AM</p>
+            <p><strong>Evening:</strong> 5:00 PM – 9:00 PM</p>
+            <p>Experience the morning prayers or evening rituals, and embrace the calm ambiance of the temple.</p>
+          </div>
+
+          <div className="info-block">
+            <h3><FiPhone style={{ marginRight: "8px" }} />Contact</h3>
+            <p><strong>Phone:</strong> +91 12345 67890</p>
+            <p><strong>Email:</strong> <FiMail style={{ marginRight: "6px" }} /> info@divineoasis.org</p>
+            <p>Reach out for inquiries, temple events, or spiritual guidance. We are always happy to assist you.</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
       <div className="location-container">
         <div className="image-container">
           <p className="lady-caption">

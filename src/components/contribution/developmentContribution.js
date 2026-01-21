@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./developmentContribution.css";
 import templeService from "../../appwrite/templeService";
 import { loadRazorpay, openRazorpayCheckout } from "../razorpay";
@@ -9,18 +9,17 @@ export default function DevelopmentContribution({ userId }) {
   const [donations, setDonations] = useState([]);
   const [lastDocumentId, setLastDocumentId] = useState(null);
   const [hasMore, setHasMore] = useState(true);
+
   const PAGE_SIZE = 10;
 
-
   const client = new Client()
-    .setEndpoint('https://cloud.appwrite.io/v1') 
-    .setProject("685bbc97000569923490");
+    .setEndpoint(process.env.REACT_APP_APPWRITE_URL)
+    .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID);
 
   const functions = new Functions(client);
 
   useEffect(() => {
     fetchDonations();
-  
   }, []);
 
   const fetchDonations = async () => {
@@ -30,63 +29,64 @@ export default function DevelopmentContribution({ userId }) {
         PAGE_SIZE,
         lastDocumentId
       );
+
       if (res.documents.length > 0) {
         setDonations(res.documents);
-        setLastDocumentId(res.documents[res.documents.length - 1].$id);
+        setLastDocumentId(res.documents.at(-1).$id);
         setHasMore(res.documents.length === PAGE_SIZE);
       } else {
         setHasMore(false);
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error("Fetch donations failed:", err);
     }
   };
 
   const handleDonate = async () => {
-    if (!amount || isNaN(amount) || amount <= 0) {
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
       alert("Please enter a valid amount");
       return;
     }
 
     const sdkLoaded = await loadRazorpay();
-    if (!sdkLoaded) return alert("Razorpay SDK failed to load.");
+    if (!sdkLoaded) {
+      alert("Razorpay SDK failed to load");
+      return;
+    }
 
     try {
-
+      // ✅ Call Appwrite Function
       const execution = await functions.createExecution(
-        "68da7498000cb1dcaeb2",
-        JSON.stringify({
-          $method: "POST",
-          $path: "/create-order",
-          amount: Number(amount) * 100,
-        }),
-        false
+        process.env.REACT_APP_APPWRITE_FUNCTION_ID, // ✅ env
+        JSON.stringify({ amount: Number(amount) * 100 }),
+        false,
+        "/create-order",
+        "POST"
       );
 
+      const order = JSON.parse(execution.responseBody);
 
-
-      const orderData = JSON.parse(execution.responseBody);
-
-      if (!orderData.id || !orderData.amount) {
-        throw new Error(orderData.error || "Failed to create order.");
+      if (!order.id || !order.amount) {
+        throw new Error("Invalid order response");
       }
 
-      // Open Razorpay checkout
+      // ✅ Razorpay checkout
       openRazorpayCheckout({
-        key: "UJx8d5EkNU3rGbdLoR6EcxCQ",
-        amount: orderData.amount,
-        orderId: orderData.id,
+        amount: order.amount,
+        orderId: order.id,
+        name: "Temple Development Fund",
+        description: "Development Contribution",
         onSuccess: async (response) => {
-          alert("Payment Successful!");
-          console.log("Payment response:", response);
+          console.log("Payment success:", response);
 
-          // Save donation in Appwrite
           await templeService.addDonation({
             userId,
             eventId: "",
             type: "Development",
-            amount: parseInt(amount),
+            amount: Number(amount),
           });
+
+          alert("Payment successful");
 
           setAmount("");
           setDonations([]);
@@ -95,25 +95,24 @@ export default function DevelopmentContribution({ userId }) {
           fetchDonations();
         },
       });
-    } catch (error) {
-      console.error(error);
-      alert("Error creating Razorpay order. See console for details.");
+    } catch (err) {
+      console.error("Donation failed:", err);
+      alert("Payment failed");
     }
   };
 
-  function getFormatDate(inputDate) {
-    const date = new Date(inputDate);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
-  }
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr);
+    return `${d.toLocaleDateString()} ${d.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
+  };
 
   return (
     <div className="section">
       <h2>Contribute towards Development</h2>
+
       <div className="dev-form">
         <input
           type="number"
@@ -123,16 +122,19 @@ export default function DevelopmentContribution({ userId }) {
         />
         <button onClick={handleDonate}>Donate</button>
       </div>
+
       <h3>Previous Contributions</h3>
+
       <ul className="contribution-list">
         {donations.map((d) => (
           <li key={d.$id}>
             <span>{d.UserId}</span>
-            <span>{d.Amount}</span>
-            <span>{getFormatDate(d.TimeStamp)}</span>
+            <span>₹{d.Amount}</span>
+            <span>{formatDate(d.TimeStamp)}</span>
           </li>
         ))}
       </ul>
+
       {hasMore && (
         <div style={{ textAlign: "center", marginTop: "1rem" }}>
           <button className="load-more-btn" onClick={fetchDonations}>

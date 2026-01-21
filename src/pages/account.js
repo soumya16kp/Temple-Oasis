@@ -13,13 +13,13 @@ import Loading from '../components/loading';
 
 
 const Account = () => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const LogoutHandler = async () => {
-      await authService.logout();
-      dispatch(logout());
+    await authService.logout();
+    dispatch(logout());
   };
-  
-  const [newUser,setNewUser]=useState(false);
+
+  const [newUser, setNewUser] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -39,7 +39,7 @@ const Account = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-      
+
         const account = await authService.getCurrentUser();
         setAccountId(account.$id);
 
@@ -75,7 +75,7 @@ const Account = () => {
   };
 
   const handlePhotoChange = async (e) => {
-  const file = e.target.files[0];
+    const file = e.target.files[0];
     if (!file) return;
 
     try {
@@ -122,36 +122,36 @@ const Account = () => {
   if (loading) {
     return (
       <div className="account-page">
-        <Loading/>
+        <Loading />
       </div>
     );
   }
-  
-  return newUser?(< UserForm/>):(
+
+  return newUser ? (< UserForm />) : (
     <div className="account-page">
       {toastMessage && (
         <div className="toast">
           {toastMessage}
         </div>
       )}
-      <div className='user-header'>
+      <div className='account-header'>
         <h2>My Account</h2>
         <button
-              onClick={LogoutHandler}
-              className="logout-btn"
-            >
-              Logout
+          onClick={LogoutHandler}
+          className="logout-btn"
+        >
+          Logout
         </button>
       </div>
-      
+
       <div className='user-interface'>
-        
-        <div className="card">
-          <div className="photo-section">
+
+        <div className="account-card">
+          <div className="account-photo-section">
             <img
               src={formData?.photo ? userService.getFilePreview(formData.photo) : defaultUserProfile}
               alt="Profile"
-              className="profile-photo"
+              className="account-profile-photo"
             />
             {isEditing && (
               <label className="photo-upload">
@@ -161,8 +161,8 @@ const Account = () => {
             )}
           </div>
 
-          <div className="info-section">
-            <div className="field">
+          <div className="account-info-section">
+            <div className="account-field">
               <label>Name</label>
               {isEditing ? (
                 <input
@@ -175,7 +175,7 @@ const Account = () => {
               )}
             </div>
 
-            <div className="field">
+            <div className="account-field">
               <label>Email</label>
               {isEditing ? (
                 <input
@@ -188,7 +188,7 @@ const Account = () => {
               )}
             </div>
 
-            <div className="field">
+            <div className="account-field">
               <label>Contact</label>
               {isEditing ? (
                 <input
@@ -201,7 +201,7 @@ const Account = () => {
               )}
             </div>
 
-            <div className="field">
+            <div className="account-field">
               <label>Designation</label>
               {isEditing ? (
                 <input
@@ -216,7 +216,7 @@ const Account = () => {
 
             <button
               onClick={handleEditToggle}
-              className="edit-button"
+              className="account-edit-btn"
               disabled={saving}
             >
               {isEditing ? (saving ? 'Saving...' : 'Save') : 'Edit'}
@@ -224,11 +224,11 @@ const Account = () => {
           </div>
         </div>
         <div className='user-contribution'>{
-          <YourContributions userId={accountId}/> 
-        }    
+          <YourContributions userId={accountId} />
+        }
         </div>
       </div>
-      
+
     </div>
   )
 };
